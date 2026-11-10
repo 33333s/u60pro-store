@@ -1,5 +1,5 @@
 {
-  "version": "1.0-r2",
+  "version": "1.0-r3",
   "arch": "noarch",
   "description": "LuCI pages of the U60 Pro hardware: Status > Battery, System > Power, Screen and Buttons",
   "depends": [ "luci-base", "u60pro-hw" ],
