@@ -1,4 +1,10 @@
 {
+  "admin/network/u60pro-wifi": {
+    "title": "Wi-Fi",
+    "order": 12,
+    "action": { "type": "view", "path": "network/u60pro-wifi" },
+    "depends": { "acl": [ "u60pro-wifi" ], "uci": { "u60wifi": true } }
+  },
   "admin/status/u60pro-battery": {
     "title": "Battery",
     "order": 12,

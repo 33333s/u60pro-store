@@ -8,6 +8,7 @@ usage: make_feed.py --apk <apk.static> --key <private EC key> --out <dir> --url 
   --url    what u60pro-feed puts into /etc/apk/repositories.d/u60pro.list (the address of <out>/u60pro/packages.adb)
   --only   build only these packages, without an index (no key needed): for putting u60pro-feed and the others into a firmware root
   --external  where files built outside this repository are: <dir>/<package>/... (see "external" below); default build/external
+  --skip   leave these packages out (a package that is not to be published yet)
 
 Output: <out>/u60pro/ with <name>-<version>.apk, packages.adb (signed with --key; the device verifies it with
 /etc/apk/keys/u60pro-feed.pem) and feed.json (what was built).  Packages are not signed one by one, as in OpenWrt: the signed index
@@ -21,6 +22,10 @@ etc/uci-defaults get mode 755.  The public key (u60pro-feed.pem) goes into u60pr
 A package with files built elsewhere (the screen UI's binary, pages and font) names them in "external": {installed path: path under
 <external>/<package>/}, a file or a directory; "exec" lists the installed paths that are programs.  The package is left out, with a
 note, while they have not been built.
+
+A package can also take files from elsewhere in this repository, where their owner keeps working on them: "repo": {installed
+path: path from the repository root}.  "exec" applies to
+these too.
 
 All packages are "noarch" (scripts and web pages), so the feed does not depend on the architecture the firmware is built for.
 Kernel modules are not here yet: they belong to one kernel build each and come with the kernel work."""
@@ -100,13 +105,14 @@ def main():
     ap.add_argument('--url', required=True)
     ap.add_argument('--only', action='append', default=[], metavar='PACKAGE')
     ap.add_argument('--external', type=Path, default=REPO / 'build' / 'external')
+    ap.add_argument('--skip', action='append', default=[], metavar='PACKAGE')
     a = ap.parse_args()
     if not a.only and not a.key:
         raise SystemExit('--key is needed to sign the index (or --only for single packages)')
-    packages = REPO / "packages"
+    packages = REPO / 'packages'
     unknown = sorted(set(a.only) - {d.name for d in packages.iterdir()})
     if unknown:
-        raise SystemExit('--only: no such package in feed/packages: %s' % ', '.join(unknown))
+        raise SystemExit('--only: no such package in packages: %s' % ', '.join(unknown))
     out = a.out / DIST
     if out.exists():
         raise SystemExit('output exists: %s' % out)
@@ -115,7 +121,7 @@ def main():
     with tempfile.TemporaryDirectory() as t:
         tmp = Path(t)
         for d in sorted(packages.iterdir()):
-            if (a.only and d.name not in a.only) or not (d / 'package.json').is_file():
+            if (a.only and d.name not in a.only) or d.name in a.skip or not (d / 'package.json').is_file():
                 continue
             meta = json.loads((d / 'package.json').read_text(encoding='utf-8'))
             external = {k: a.external / d.name / v for k, v in meta.get('external', {}).items()}
@@ -123,6 +129,10 @@ def main():
             if missing:
                 print('skipping %s: not built (%s)' % (d.name, ', '.join(missing)))
                 continue
+            in_repo = {k: REPO / v for k, v in meta.get('repo', {}).items()}
+            missing = [str(v) for v in in_repo.values() if not v.is_file()]
+            if missing:
+                raise SystemExit('%s: no such file in the repository: %s' % (d.name, ', '.join(missing)))
             files = tmp / ('files-' + d.name)
             files.mkdir()
             if (d / 'files').is_dir():
@@ -135,10 +145,12 @@ def main():
                         (files / q).chmod(0o755)
                 else:
                     put(files, rel, src.read_bytes(), 0o755 if rel in meta.get('exec', []) else 0o644)
+            for rel, src in in_repo.items():
+                put(files, rel, src.read_bytes().replace(b'\r\n', b'\n'), 0o755 if rel in meta.get('exec', []) else 0o644)
             for po in sorted((d / 'po' / 'zh_Hans').glob('*.po')):
                 put(files, 'usr/lib/lua/luci/i18n/%s.zh-cn.lmo' % po.stem, po2lmo.build(po2lmo.parse_po(po.read_text(encoding='utf-8'))))
             if d.name == 'u60pro-feed':
-                put(files, 'etc/apk/keys/u60pro-feed.pem', (REPO / "u60pro-feed.pem").read_bytes())
+                put(files, 'etc/apk/keys/u60pro-feed.pem', (REPO / 'u60pro-feed.pem').read_bytes())
                 put(files, 'etc/apk/repositories.d/u60pro.list',
                     ('# the U60 Pro package feed (device-specific packages), signed with /etc/apk/keys/u60pro-feed.pem\n%s\n' % a.url).encode())
             scripts = {}

@@ -19,6 +19,9 @@ var callDevice = rpc.declare({ object: 'network.device', method: 'status', param
 var callWireless = rpc.declare({ object: 'network.wireless', method: 'status' });
 var callWifiUp = rpc.declare({ object: 'network.wireless', method: 'up' });
 var callWifiDown = rpc.declare({ object: 'network.wireless', method: 'down' });
+/* the device's own wireless service (the QCA hostapd, which netifd cannot run): when it answers, Wi-Fi is read and switched there */
+var callOwnWifi = rpc.declare({ object: 'u60pro.wifi', method: 'status' });
+var callOwnWifiSet = rpc.declare({ object: 'u60pro.wifi', method: 'set', params: [ 'enabled' ] });
 var callLeases = rpc.declare({ object: 'luci-rpc', method: 'getDHCPLeases', expect: { dhcp_leases: [] } });
 var callAssoc = rpc.declare({ object: 'iwinfo', method: 'assoclist', params: [ 'device' ], expect: { results: [] } });
 var callCell = rpc.declare({ object: 'u60pro.cell', method: 'status' });
@@ -26,11 +29,11 @@ var callHw = rpc.declare({ object: 'u60pro.hw', method: 'status' });
 var callScreen = rpc.declare({ object: 'u60pro.hw', method: 'screen', params: [ 'power' ] });
 var callBank = rpc.declare({ object: 'u60pro.hw', method: 'powerbank', params: [ 'enabled' ] });
 
-var LINK = { network: 'admin/network/network', wifi: 'admin/network/wireless', battery: 'admin/status/u60pro-battery',
+var LINK = { network: 'admin/network/network', wifi: 'admin/network/wireless', ownwifi: 'admin/network/u60pro-wifi', battery: 'admin/status/u60pro-battery',
 	power: 'admin/system/u60pro-power', screen: 'admin/system/u60pro-screen', key: 'admin/system/u60pro-buttons',
 	clients: 'admin/network/dhcp', system: 'admin/status/overview' };
 /* the pages of luci-app-u60pro; without it the tile says so instead of opening a missing page */
-var APP = { battery: 1, power: 1, screen: 1, key: 1 };
+var APP = { battery: 1, power: 1, screen: 1, key: 1, ownwifi: 1 };
 
 function menuHas(tree, path) {
 	var n = tree;
@@ -131,7 +134,8 @@ function gather() {
 		L.resolveDefault(callIfaces(), []),
 		L.resolveDefault(callWireless(), null),
 		L.resolveDefault(callLeases(), []),
-		L.resolveDefault(callCell(), null)
+		L.resolveDefault(callCell(), null),
+		L.resolveDefault(callOwnWifi(), null)
 	]).then(function(r) {
 		board = r[0];
 		var info = r[1], up = pickUplink(r[2]), radios = r[3] || {}, aps = [], n = 0, anyUp = false;
@@ -144,9 +148,20 @@ function gather() {
 				if (c.mode === 'ap') aps.push({ ssid: c.ssid, device: i.ifname, up: !!radio.up });
 			});
 		});
+		var wifi = { available: n > 0, up: anyUp, aps: aps, stations: 0 }, own = r[6];
+		if (own && Array.isArray(own.radios)) {
+			/* it counts its stations itself */
+			wifi = { available: true, own: true, up: own.up != null ? !!own.up : !!own.enabled, aps: [], stations: 0, mode: own.mode };
+			own.radios.forEach(function(x) {
+				if (x.disabled) return;
+				wifi.aps.push({ ssid: x.ssid || own.ssid, up: !!x.up });
+				if (x.up && x.stations) wifi.stations += x.stations;
+			});
+			aps = [];
+		}
 		var st = {
 			now: info ? info.localtime : null, uptime_s: info ? info.uptime : null, hostname: board ? board.hostname : null,
-			uplink: up, wifi: { available: n > 0, up: anyUp, aps: aps, stations: 0 }, clients: r[4].length,
+			uplink: up, wifi: wifi, clients: r[4].length,
 			cell: r[5] && r[5].connected != null ? r[5] : null
 		};
 		return Promise.all([ up.up && up.device ? L.resolveDefault(callDevice(up.device), null) : null ].concat(
@@ -448,8 +463,9 @@ return view.extend({
 		if (S.st) S.skew = S.st.now * 1000 - Date.now();
 		var acc = num(document.documentElement.getAttribute('data-accent'));
 		if (acc != null && THEMES[acc]) S.theme = acc;
-		document.head.appendChild(E('link', { 'rel': 'stylesheet', 'href': L.resource('../u60pro/overview.css') + '?v=1.0-r2' }));
+		document.head.appendChild(E('link', { 'rel': 'stylesheet', 'href': L.resource('../u60pro/overview.css') + '?v=1.0-r3' }));
 		var go = function(k) {
+			if (k === 'wifi' && wifiState().own) k = 'ownwifi';
 			if (S.menu && !menuHas(S.menu, LINK[k])) {
 				ui.addNotification(null, E('p', APP[k] ? _('This page comes with the package luci-app-u60pro (System > Software).')
 					: _('This page is not part of the installed firmware.')), 'warning');
@@ -471,7 +487,7 @@ return view.extend({
 		}
 		function val() { return E('div', { 'class': 'u-val u-ellip' }); }
 		function line(ic, kids) { return E('div', { 'class': 'u-meta' }, [ ic ? icon(ic) : '' ].concat(kids)); }
-		E2.wifi = sw(function(on) { return on ? callWifiUp() : callWifiDown(); });
+		E2.wifi = sw(function(on) { return wifiState().own ? callOwnWifiSet(on) : (on ? callWifiUp() : callWifiDown()); });
 		E2.screen = sw(function(on) { return callScreen(on ? 'on' : 'off'); });
 		E2.bank = sw(function(on) { return callBank(on); });
 		E2.pill = E('span', { 'class': 'u-pill' });

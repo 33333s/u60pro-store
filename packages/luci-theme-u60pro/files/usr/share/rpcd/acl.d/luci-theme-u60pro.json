@@ -27,6 +27,9 @@
         ],
         "u60pro.cell": [
           "status"
+        ],
+        "u60pro.wifi": [
+          "status"
         ]
       }
     },
@@ -40,6 +43,9 @@
           "screen",
           "powerbank",
           "charging"
+        ],
+        "u60pro.wifi": [
+          "set"
         ]
       }
     }

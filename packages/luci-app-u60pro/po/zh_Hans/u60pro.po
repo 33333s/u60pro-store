@@ -494,3 +494,147 @@ msgstr "无记录"
 
 msgid "now"
 msgstr "现在"
+
+msgid "2.4 GHz + 5 GHz"
+msgstr "2.4 GHz + 5 GHz"
+
+msgid "2.4 GHz reaches further and suits older devices, 5 GHz is faster."
+msgstr "2.4 GHz 覆盖更远、兼容老设备，5 GHz 更快。"
+
+msgid "5 GHz"
+msgstr "5 GHz"
+
+msgid "One network on 5 GHz, up to 160 MHz wide."
+msgstr "只开一个 5 GHz 网络，频宽最高 160 MHz。"
+
+msgid "5 GHz + 6 GHz"
+msgstr "5 GHz + 6 GHz"
+
+msgid "160 MHz on each band. 6 GHz is for devices with Wi-Fi 6E or Wi-Fi 7."
+msgstr "两个频段各 160 MHz。6 GHz 需要支持 Wi-Fi 6E 或 Wi-Fi 7 的设备。"
+
+msgid "6 GHz, 320 MHz"
+msgstr "6 GHz 320 MHz"
+
+msgid "Both radios joined into one 320 MHz channel: the fastest link, for Wi-Fi 7 devices only."
+msgstr "两个射频合成一个 320 MHz 信道：速度最快，只有 Wi-Fi 7 设备能用。"
+
+msgid "5 GHz + 5 GHz"
+msgstr "5 GHz + 5 GHz"
+
+msgid "Two networks on 5 GHz: the lower channels (36–64) and the upper ones (149–165)."
+msgstr "两个 5 GHz 网络：低段信道（36–64）和高段信道（149–165）。"
+
+msgid "2.4 GHz"
+msgstr "2.4 GHz"
+
+msgid "2.4 GHz only: the longest range, the lowest speed."
+msgstr "只开 2.4 GHz：覆盖最远，速度最低。"
+
+msgid "5 GHz low"
+msgstr "5 GHz 低段"
+
+msgid "5 GHz high"
+msgstr "5 GHz 高段"
+
+msgid "WPA3"
+msgstr "WPA3"
+
+msgid "WPA2 / WPA3"
+msgstr "WPA2 / WPA3"
+
+msgid "WPA2"
+msgstr "WPA2"
+
+msgid "Switch"
+msgstr "切换"
+
+msgid "In use"
+msgstr "使用中"
+
+msgid "Not tested"
+msgstr "未实测"
+
+msgid "Not applied yet"
+msgstr "尚未应用"
+
+msgid "Switching to %s. Devices connect again in a few seconds."
+msgstr "正在切换到 %s，设备会在几秒后重新连接。"
+
+msgid "Starting"
+msgstr "正在启动"
+
+msgid "Own combination"
+msgstr "自定义组合"
+
+msgid "Radio %d"
+msgstr "射频 %d"
+
+msgid "Not used in this combination"
+msgstr "此组合不使用"
+
+msgid "Not running"
+msgstr "未运行"
+
+msgid "Channel %d"
+msgstr "信道 %d"
+
+msgid "%d clients"
+msgstr "%d 台设备"
+
+msgid "Clients"
+msgstr "已连接设备"
+
+msgid "The wireless service of this device is not running (ubus object u60pro.wifi)."
+msgstr "本机的无线服务没有运行（ubus 对象 u60pro.wifi）。"
+
+msgid "The wireless service has no settings yet (/etc/config/u60wifi)."
+msgstr "无线服务还没有配置（/etc/config/u60wifi）。"
+
+msgid "Network name and password"
+msgstr "名称和密码"
+
+msgid "Both radios use this name and password unless a radio has its own name below."
+msgstr "两个射频共用这个名称和密码，除非下面给某个射频单独起了名字。"
+
+msgid "Name (SSID)"
+msgstr "名称（SSID）"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Security"
+msgstr "加密方式"
+
+msgid "6 GHz always uses WPA3, whatever is chosen here."
+msgstr "6 GHz 始终使用 WPA3，与这里的选择无关。"
+
+msgid "Country code"
+msgstr "国家码"
+
+msgid "Two letters. It decides which channels and how much power the radios may use."
+msgstr "两个字母，决定可用的信道和发射功率。"
+
+msgid "The band and the channel width follow the radio combination above."
+msgstr "频段和频宽由上面的射频组合决定。"
+
+msgid "Channel"
+msgstr "信道"
+
+msgid "Empty: the service picks one for the band."
+msgstr "留空：由服务按频段选择。"
+
+msgid "automatic"
+msgstr "自动"
+
+msgid "Own name (SSID)"
+msgstr "单独的名称（SSID）"
+
+msgid "Empty: the name above."
+msgstr "留空：使用上面的名称。"
+
+msgid "Radio combination"
+msgstr "射频组合"
+
+msgid "Switching restarts Wi-Fi: every device connects again, and one that cannot use the new band stays offline. If you are on Wi-Fi yourself, make sure your device supports the combination before switching."
+msgstr "切换会重启 Wi-Fi：所有设备都要重新连接，不支持新频段的设备会连不上。如果你自己正通过 Wi-Fi 访问，切换前请确认你的设备支持所选组合。"

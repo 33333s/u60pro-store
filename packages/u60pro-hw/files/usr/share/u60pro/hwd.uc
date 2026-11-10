@@ -139,6 +139,18 @@ function powerbank_node() {
 	return null;
 }
 
+/* usb_type lists every type with the current one in brackets ("Unknown [SDP] DCP CDP ..."): that one alone */
+function psy_choice(v) {
+	if (v == null) return null;
+	let m = match(v, /\[([^\]]+)\]/);
+	return m ? m[1] : v;
+}
+/* a time the fuel gauge cannot tell is negative */
+function psy_time(name) {
+	let v = rd_int(psy('battery', name + '_now')) ?? rd_int(psy('battery', name + '_avg'));
+	return (v == null || v < 0) ? null : v;
+}
+
 function read_battery() {
 	let have = fs.stat(PSY + '/battery') != null;
 	let cap = rd_int(psy('battery', 'capacity')), uv = rd_int(psy('battery', 'voltage_now')), ua = rd_int(psy('battery', 'current_now'));
@@ -163,8 +175,7 @@ function read_battery() {
 		charge_full_mah: full == null ? null : round(full / 1000.0),
 		design_mah: design != null ? round(design / 1000.0) : (nominal || 10000),
 		cycles: rd_int(psy('battery', 'cycle_count')),
-		time_to_full_s: rd_int(psy('battery', 'time_to_full_now')) ?? rd_int(psy('battery', 'time_to_full_avg')),
-		time_to_empty_s: rd_int(psy('battery', 'time_to_empty_now')) ?? rd_int(psy('battery', 'time_to_empty_avg'))
+		time_to_full_s: psy_time('time_to_full'), time_to_empty_s: psy_time('time_to_empty')
 	};
 }
 
@@ -180,7 +191,7 @@ function read_charger() {
 	let mv = uv == null ? null : round(uv / 1000.0), ma = ua == null ? null : round((ua < 0 ? -ua : ua) / 1000.0);
 	return {
 		available: online != null, online: online == 1,
-		type: rd(psy('usb', 'real_type')) ?? rd(psy('usb', 'usb_type')) ?? rd(psy('usb', 'type')),
+		type: rd(psy('usb', 'real_type')) ?? psy_choice(rd(psy('usb', 'usb_type'))) ?? rd(psy('usb', 'type')),
 		voltage_mv: mv, current_ma: ma, power_mw: (mv != null && ma != null) ? round(mv * ma / 1000.0) : null
 	};
 }
@@ -377,9 +388,15 @@ const ACTIONS = {
 	screen_toggle: function() { screen_set(!scr.on); },
 	screen_on: function() { screen_set(true); },
 	screen_off: function() { screen_set(false); },
-	/* netifd's own objects: network.wireless up / down for all radios, network.interface.<name> up / down for the data connection */
+	/* Wi-Fi: the device's own wireless service (u60pro.wifi, the QCA hostapd that netifd cannot run) when it is there, else netifd's
+	 * network.wireless up / down for all radios; network.interface.<name> up / down for the data connection */
 	wifi_toggle: function() {
 		if (!conn) return;
+		let w = conn.call('u60pro.wifi', 'status');
+		if (w && (w.enabled != null || w.up != null)) {
+			conn.call('u60pro.wifi', 'set', { enabled: !(w.up ?? w.enabled) });
+			return;
+		}
 		let st = conn.call('network.wireless', 'status') || {}, up = false;
 		for (let r in st) if (st[r].up) up = true;
 		conn.call('network.wireless', up ? 'down' : 'up', {});

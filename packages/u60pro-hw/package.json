@@ -1,5 +1,5 @@
 {
-  "version": "1.0-r3",
+  "version": "1.0-r4",
   "arch": "noarch",
   "description": "U60 Pro hardware service: battery and charging policy, screen backlight and the power key (ubus u60pro.hw, UCI u60pro)",
   "depends": [

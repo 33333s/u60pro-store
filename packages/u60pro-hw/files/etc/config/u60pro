@@ -27,6 +27,8 @@ config net 'net'
 
 # the power key (KEY_POWER, code 116): none, screen_toggle, screen_on, screen_off, wifi_toggle, data_toggle,
 # powerbank_toggle, poweroff, reboot, command (with command_short / command_double / command_long)
+# The other two input devices have no actions: the reset pinhole (gpio-keys, KEY_RESTART 408; the stock system restores the
+# factory state with it) and pmic_resin (KEY_VOLUMEDOWN 114).  They only show up in the key log.
 config key 'power'
 	option code '116'
 	option short 'screen_toggle'

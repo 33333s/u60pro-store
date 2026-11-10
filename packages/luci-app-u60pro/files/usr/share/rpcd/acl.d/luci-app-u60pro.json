@@ -1,0 +1,13 @@
+{
+  "u60pro-wifi": {
+    "description": "U60 Pro Wi-Fi: radio combination, name and password (the device's own wireless service)",
+    "read": {
+      "ubus": { "u60pro.wifi": [ "status" ] },
+      "uci": [ "u60wifi" ]
+    },
+    "write": {
+      "ubus": { "u60pro.wifi": [ "set", "radio" ] },
+      "uci": [ "u60wifi" ]
+    }
+  }
+}
