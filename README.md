@@ -29,7 +29,7 @@ apk update
 | `u60pro-feed` | 本源的公钥和地址（`/etc/apk/repositories.d/u60pro.list`） |
 | `u60pro-hw` | 硬件服务：电池与充电策略（充电上限、直供电、暂停充电、长充保护、低电量关机、反向充电）、屏幕背光与息屏、电源键的短按 / 双击 / 长按动作。设置在 UCI `u60pro`，状态和控制在 ubus `u60pro.hw`，命令行 `u60pro-hw` |
 | `luci-theme-u60pro` | 本机专用的 LuCI 主题：极简外观、带图标的侧边菜单（手机上是抽屉）、深浅色，带机身示意图的“概览”首页（屏幕里实时画出主页，卡片带开关）。装上即切换到它。样式底层是 Bootstrap 主题（Apache-2.0），图标是 Lucide 子集（ISC） |
-| `u60pro-devui` | 屏幕界面：[zwrt-devui](https://github.com/33333s/zwrt-devui) 的 `u60pro-openwrt` 分支，数据直接从 ubus 和 UCI 取（不需要 zwrt-datad），带页面和一份中文字体（Noto Sans SC 子集，OFL-1.1）。亮度和自动息屏与网页共用 UCI `u60pro.screen`。依赖 `u60pro-hw` |
+| `u60pro-devui` | 屏幕界面：[zwrt-devui](https://github.com/33333s/zwrt-devui) 的 `u60pro-openwrt` 分支，数据直接从 ubus 和 UCI 取（不需要 zwrt-datad），带页面和一份中文字体（Noto Sans SC 子集：常用汉字 3755 个，1.6 MB，OFL-1.1）。亮度和自动息屏与网页共用 UCI `u60pro.screen`。依赖 `u60pro-hw` |
 | `luci-app-u60pro` | LuCI 页面：「网络 → Wi-Fi」（两个射频的组合：2.4+5、5+5、5+6、单 6G 320 等，名称密码，每个射频的开关；需要本机的无线服务）、「状态 → 电池」（电量、功率、历史曲线）、「系统 → 电源」（充电模式和保护）、「系统 → 屏幕」（亮度、息屏、唤醒）、「系统 → 按键」（电源键动作和按键记录）。依赖 `u60pro-hw` |
 
 所有包都是 `noarch`（脚本和网页），不绑定 CPU 架构和内核版本。内核模块包以后随内核一起提供。
