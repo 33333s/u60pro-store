@@ -9,8 +9,19 @@
  * live data whether the real screen is on or not, and tiles for the network, Wi-Fi, battery, screen, reverse charging, clients and
  * system.  The screen opens System > Screen, the power key System > Buttons, the USB-C port System > Power, the tiles their pages. */
 
-var callState = rpc.declare({ object: 'u60pro-dashboard', method: 'state' });
-var callWifi = rpc.declare({ object: 'u60pro-dashboard', method: 'wifi_set', params: [ 'enabled' ] });
+/* Everything the system itself knows comes from its standard ubus objects (procd's system, netifd's network.*, rpcd's luci-rpc and
+ * iwinfo); only what OpenWrt has no interface for is asked of the device's own objects: u60pro.hw (battery, backlight, key; package
+ * u60pro-hw) and u60pro.cell (the cellular link, when a modem service publishes it). */
+var callBoard = rpc.declare({ object: 'system', method: 'board' });
+var callInfo = rpc.declare({ object: 'system', method: 'info' });
+var callIfaces = rpc.declare({ object: 'network.interface', method: 'dump', expect: { 'interface': [] } });
+var callDevice = rpc.declare({ object: 'network.device', method: 'status', params: [ 'name' ] });
+var callWireless = rpc.declare({ object: 'network.wireless', method: 'status' });
+var callWifiUp = rpc.declare({ object: 'network.wireless', method: 'up' });
+var callWifiDown = rpc.declare({ object: 'network.wireless', method: 'down' });
+var callLeases = rpc.declare({ object: 'luci-rpc', method: 'getDHCPLeases', expect: { dhcp_leases: [] } });
+var callAssoc = rpc.declare({ object: 'iwinfo', method: 'assoclist', params: [ 'device' ], expect: { results: [] } });
+var callCell = rpc.declare({ object: 'u60pro.cell', method: 'status' });
 var callHw = rpc.declare({ object: 'u60pro.hw', method: 'status' });
 var callScreen = rpc.declare({ object: 'u60pro.hw', method: 'screen', params: [ 'power' ] });
 var callBank = rpc.declare({ object: 'u60pro.hw', method: 'powerbank', params: [ 'enabled' ] });
@@ -80,6 +91,73 @@ var FONT = (getComputedStyle(document.documentElement).getPropertyValue('--font-
 
 /* ------------------------------------------------------------------ state */
 var S = { st: null, hw: null, skew: 0, theme: 1 };
+var board = null, lastRate = null;
+
+/* the interface that carries the IPv4 default route (the lowest metric), else the IPv6 one */
+function pickUplink(ifaces) {
+	var best = null;
+	(ifaces || []).forEach(function(i) {
+		if (!i.up || i.interface === 'loopback') return;
+		(i.route || []).forEach(function(r) {
+			if (r.mask !== 0) return;
+			var m = (i.metric || 0) + (r.target === '::' ? 100000 : 0);
+			if (!best || m < best.m) best = { m: m, i: i };
+		});
+	});
+	if (!best) return { up: false };
+	var i = best.i, a4 = (i['ipv4-address'] || [])[0], a6 = (i['ipv6-address'] || [])[0];
+	return { up: true, name: i.interface, proto: i.proto, device: i.l3_device || i.device, address: (a4 || a6 || {}).address, uptime_s: i.uptime };
+}
+
+/* bytes per second on the uplink between this sample and the previous one of this page */
+function rateOf(dev, st) {
+	var s = st && st.statistics, now = Date.now();
+	if (!s || s.rx_bytes == null) return null;
+	var r = { rx_total: s.rx_bytes, tx_total: s.tx_bytes, rx_bps: null, tx_bps: null }, p = lastRate;
+	if (p && p.dev === dev && now > p.t && s.rx_bytes >= p.rx && s.tx_bytes >= p.tx) {
+		r.rx_bps = (s.rx_bytes - p.rx) * 1000 / (now - p.t);
+		r.tx_bps = (s.tx_bytes - p.tx) * 1000 / (now - p.t);
+	}
+	lastRate = { dev: dev, t: now, rx: s.rx_bytes, tx: s.tx_bytes };
+	return r;
+}
+
+/* one sample of the system: {now, uptime_s, hostname, uplink, wifi, clients, cell}.  `now` is the device's local time, so the clock
+ * on the drawn screen is the device's and not the browser's. */
+function gather() {
+	return Promise.all([
+		board ? board : L.resolveDefault(callBoard(), null),
+		L.resolveDefault(callInfo(), null),
+		L.resolveDefault(callIfaces(), []),
+		L.resolveDefault(callWireless(), null),
+		L.resolveDefault(callLeases(), []),
+		L.resolveDefault(callCell(), null)
+	]).then(function(r) {
+		board = r[0];
+		var info = r[1], up = pickUplink(r[2]), radios = r[3] || {}, aps = [], n = 0, anyUp = false;
+		Object.keys(radios).forEach(function(name) {
+			var radio = radios[name];
+			n++;
+			if (radio.up) anyUp = true;
+			(radio.interfaces || []).forEach(function(i) {
+				var c = i.config || {};
+				if (c.mode === 'ap') aps.push({ ssid: c.ssid, device: i.ifname, up: !!radio.up });
+			});
+		});
+		var st = {
+			now: info ? info.localtime : null, uptime_s: info ? info.uptime : null, hostname: board ? board.hostname : null,
+			uplink: up, wifi: { available: n > 0, up: anyUp, aps: aps, stations: 0 }, clients: r[4].length,
+			cell: r[5] && r[5].connected != null ? r[5] : null
+		};
+		return Promise.all([ up.up && up.device ? L.resolveDefault(callDevice(up.device), null) : null ].concat(
+			aps.filter(function(a) { return a.up && a.device; }).map(function(a) { return L.resolveDefault(callAssoc(a.device), []); })
+		)).then(function(q) {
+			if (up.up) up.rates = rateOf(up.device, q[0]);
+			q.slice(1).forEach(function(l) { st.wifi.stations += l.length; });
+			return st;
+		});
+	}).catch(function() { return null; });
+}
 function battery() {
 	var b = S.hw && S.hw.battery, c = S.hw && S.hw.charger, g = S.hw && S.hw.charge;
 	if (!b || !b.available) return null;
@@ -111,7 +189,9 @@ function linkPill() {
 function signalBars() {
 	var c = cell();
 	if (!c || !c.connected) return uplink().up ? 4 : 0;
-	var r = num(c.rsrp);
+	if (num(c.bars) != null) return Math.max(0, Math.min(4, num(c.bars)));
+	var r = num((c.nr || {}).rsrp);
+	if (r == null) r = num((c.lte || {}).rsrp);
 	return r == null ? 0 : r >= -85 ? 4 : r >= -95 ? 3 : r >= -105 ? 2 : r >= -115 ? 1 : 0;
 }
 function rates() { return uplink().rates || {}; }
@@ -169,7 +249,7 @@ function drawScreen(cv) {
 
 	var b = battery(), pct = b ? b.pct : null, charging = b && b.charging;
 	var bc = pct == null ? C_FAINT : pct <= 15 ? C_BAD : pct <= 30 ? C_WARN : C_OK;
-	var t = new Date(Date.now() + S.skew + (S.st.tz_offset_s || 0) * 1000);
+	var t = new Date(Date.now() + S.skew);
 	var clock = pad(t.getUTCHours()) + ':' + pad(t.getUTCMinutes());
 	var conn = (cell() && cell().connected) || uplink().up, pill = linkPill(), lv = signalBars();
 
@@ -359,7 +439,7 @@ return view.extend({
 				document.head.appendChild(s);
 			}));
 		}
-		p.push(L.resolveDefault(callState(), null), L.resolveDefault(callHw(), null), L.resolveDefault(ui.menu.load(), null));
+		p.push(gather(), L.resolveDefault(callHw(), null), L.resolveDefault(ui.menu.load(), null));
 		return Promise.all(p);
 	},
 
@@ -368,7 +448,7 @@ return view.extend({
 		if (S.st) S.skew = S.st.now * 1000 - Date.now();
 		var acc = num(document.documentElement.getAttribute('data-accent'));
 		if (acc != null && THEMES[acc]) S.theme = acc;
-		document.head.appendChild(E('link', { 'rel': 'stylesheet', 'href': L.resource('../u60pro/overview.css') + '?v=1.0-r1' }));
+		document.head.appendChild(E('link', { 'rel': 'stylesheet', 'href': L.resource('../u60pro/overview.css') + '?v=1.0-r2' }));
 		var go = function(k) {
 			if (S.menu && !menuHas(S.menu, LINK[k])) {
 				ui.addNotification(null, E('p', APP[k] ? _('This page comes with the package luci-app-u60pro (System > Software).')
@@ -391,7 +471,7 @@ return view.extend({
 		}
 		function val() { return E('div', { 'class': 'u-val u-ellip' }); }
 		function line(ic, kids) { return E('div', { 'class': 'u-meta' }, [ ic ? icon(ic) : '' ].concat(kids)); }
-		E2.wifi = sw(function(on) { return callWifi(on); });
+		E2.wifi = sw(function(on) { return on ? callWifiUp() : callWifiDown(); });
 		E2.screen = sw(function(on) { return callScreen(on ? 'on' : 'off'); });
 		E2.bank = sw(function(on) { return callBank(on); });
 		E2.pill = E('span', { 'class': 'u-pill' });
@@ -470,13 +550,13 @@ return view.extend({
 		this.update = update;
 
 		function poll1() {
-			return Promise.all([ L.resolveDefault(callState(), null), L.resolveDefault(callHw(), null) ]).then(function(r) {
+			return Promise.all([ gather(), L.resolveDefault(callHw(), null) ]).then(function(r) {
 				if (r[0]) { S.st = r[0]; S.skew = r[0].now * 1000 - Date.now(); }
 				S.hw = r[1];
 				update();
 			});
 		}
-		refreshSoon = function() { setTimeout(poll1, 600); };
+		refreshSoon = function() { setTimeout(poll1, 900); };
 		poll.add(poll1, 2);
 		update();
 

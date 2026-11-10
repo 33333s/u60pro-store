@@ -1,8 +1,16 @@
 {
-  "version": "1.0-r1",
+  "version": "1.0-r2",
   "arch": "noarch",
   "description": "U60 Pro hardware service: battery and charging policy, screen backlight and the power key (ubus u60pro.hw, UCI u60pro)",
-  "depends": [ "ucode", "ucode-mod-fs", "ucode-mod-io", "ucode-mod-uloop", "ucode-mod-ubus", "ucode-mod-uci", "ucode-mod-struct" ],
+  "depends": [
+    "ucode",
+    "ucode-mod-fs",
+    "ucode-mod-io",
+    "ucode-mod-uloop",
+    "ucode-mod-ubus",
+    "ucode-mod-uci",
+    "ucode-mod-struct"
+  ],
   "scripts": {
     "post-install": "scripts/install",
     "post-upgrade": "scripts/install",

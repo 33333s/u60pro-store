@@ -372,17 +372,26 @@ const ACTIONS = {
 	screen_toggle: function() { screen_set(!scr.on); },
 	screen_on: function() { screen_set(true); },
 	screen_off: function() { screen_set(false); },
+	/* netifd's own objects: network.wireless up / down for all radios, network.interface.<name> up / down for the data connection */
 	wifi_toggle: function() {
-		spawn('if ubus call network.wireless status | grep -q \'"up": true\'; then wifi down; else wifi up; fi');
+		if (!conn) return;
+		let st = conn.call('network.wireless', 'status') || {}, up = false;
+		for (let r in st) if (st[r].up) up = true;
+		conn.call('network.wireless', up ? 'down' : 'up', {});
 	},
 	data_toggle: function() {
 		let i = cfg.net.data_iface;
-		if (match(i, /^[A-Za-z0-9_.-]+$/))
-			spawn('if ubus call network.interface.' + i + ' status | grep -q \'"up": true\'; then ifdown ' + i + '; else ifup ' + i + '; fi');
+		if (!conn || !match(i, /^[A-Za-z0-9_.-]+$/)) return;
+		let st = conn.call('network.interface.' + i, 'status');
+		if (st) conn.call('network.interface.' + i, st.up ? 'down' : 'up', {});
 	},
 	powerbank_toggle: function() { let s = powerbank_state(); if (s.available) powerbank_set(!s.enabled); },
 	poweroff: function() { power('poweroff'); },
-	reboot: function() { power('reboot'); }
+	/* procd's system object restarts; there is no ubus call that powers off */
+	reboot: function() {
+		if (!DRYRUN && conn && conn.call('system', 'reboot', {}) != null) return;
+		power('reboot');
+	}
 };
 
 /* ------------------------------------------------------------------ keys */

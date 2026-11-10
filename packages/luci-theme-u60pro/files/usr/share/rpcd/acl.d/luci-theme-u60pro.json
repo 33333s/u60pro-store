@@ -3,18 +3,38 @@
     "description": "U60 Pro theme overview page: device state and its switches",
     "read": {
       "ubus": {
-        "u60pro-dashboard": [
-          "state"
+        "system": [
+          "board",
+          "info"
+        ],
+        "network.interface": [
+          "dump"
+        ],
+        "network.device": [
+          "status"
+        ],
+        "network.wireless": [
+          "status"
+        ],
+        "luci-rpc": [
+          "getDHCPLeases"
+        ],
+        "iwinfo": [
+          "assoclist"
         ],
         "u60pro.hw": [
+          "status"
+        ],
+        "u60pro.cell": [
           "status"
         ]
       }
     },
     "write": {
       "ubus": {
-        "u60pro-dashboard": [
-          "wifi_set"
+        "network.wireless": [
+          "up",
+          "down"
         ],
         "u60pro.hw": [
           "screen",

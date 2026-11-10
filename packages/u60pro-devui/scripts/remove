@@ -1,0 +1,4 @@
+#!/bin/sh
+/etc/init.d/u60pro-devui stop 2>/dev/null
+/etc/init.d/u60pro-devui disable 2>/dev/null
+exit 0

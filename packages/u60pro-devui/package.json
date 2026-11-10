@@ -1,0 +1,26 @@
+{
+  "version": "1.3.12-r1",
+  "arch": "noarch",
+  "description": "Screen UI of the U60 Pro: zwrt-devui (branch u60pro-openwrt) reading ubus and UCI, with its pages and a CJK font",
+  "depends": [
+    "u60pro-hw",
+    "ubus",
+    "uci"
+  ],
+  "license": "MIT AND OFL-1.1",
+  "external": {
+    "usr/share/u60pro-devui/zwrt-devui": "zwrt-devui",
+    "usr/share/u60pro-devui/ui": "ui",
+    "usr/share/u60pro-devui/fonts/NotoSansSC-Regular-subset.otf": "NotoSansSC-Regular-subset.otf",
+    "usr/share/u60pro-devui/fonts/OFL.txt": "OFL.txt",
+    "usr/share/u60pro-devui/source.txt": "source.txt"
+  },
+  "exec": [
+    "usr/share/u60pro-devui/zwrt-devui"
+  ],
+  "scripts": {
+    "post-install": "scripts/install",
+    "post-upgrade": "scripts/install",
+    "pre-deinstall": "scripts/remove"
+  }
+}
