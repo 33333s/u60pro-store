@@ -5,7 +5,9 @@
  *   battery   /sys/class/power_supply/battery (Qualcomm fuel gauge), usb (the charger input), battery_zte (ZTE charging policy:
  *             ui_chg_policy_mode 0 = charge, 5 = run from the charger without charging; customer_mode = the long-charge protection)
  *   screen    the backlight /sys/class/leds/led:lcd (AW9523), 0..max_brightness; the 320x480 panel itself belongs to the screen program
- *   keys      /dev/input/event*: the power key (KEY_POWER, the only key of the device), touches count as activity
+ *             powerbank_zte (reverse charging: online_mbb)
+ *   keys      /dev/input/event*: the power key (KEY_POWER on pmic_pwrkey, the only key on the body; pmic_resin and gpio-keys are
+ *             watched too and show up in the key log), touches count as activity
  *
  * Settings are in UCI (/etc/config/u60pro), state and control on ubus (object u60pro.hw).  Everything that the running kernel does not
  * offer is reported as not available and left alone, so the service runs on any kernel build.
@@ -109,7 +111,7 @@ function load_config() {
 			long_charge_protect: b.long_charge_protect != '0',
 			low_shutdown: opt_int(b.low_shutdown, 0, 0, 20)
 		},
-		net: { data_iface: c.get('u60pro', 'net', 'data_iface') || 'wan' },
+		net: { data_iface: c.get('u60pro', 'net', 'data_iface') || 'wwan' },
 		keys: kmap
 	};
 	if (cfg.battery.charge_start >= cfg.battery.charge_stop)
@@ -125,8 +127,11 @@ function zte_dir() {
 		if (fs.stat(d + '/ui_chg_policy_mode')) return d;
 	return null;
 }
+/* reverse charging: powerbank_zte (zte_powerbank.c), online_mbb = on / off (writable), present_mbb = a device is drawing power.
+ * online_mbb cannot be read (ENODEV) until the charger backend has installed its handlers: then there is nothing to switch. */
 function powerbank_node() {
-	for (let n in (fs.lsdir(PSY) || [])) {
+	let names = sort(fs.lsdir(PSY) || [], (a, b) => (b == 'powerbank_zte' ? 1 : 0) - (a == 'powerbank_zte' ? 1 : 0));
+	for (let n in names) {
 		if (!match(n, /bank|otg/i)) continue;
 		for (let a in [ 'online_mbb', 'online' ])
 			if (fs.stat(psy(n, a))) return { name: n, path: psy(n, a), present: fs.stat(psy(n, 'present_mbb')) ? psy(n, 'present_mbb') : null };
@@ -363,8 +368,8 @@ function powerbank_set(on) {
 	return n ? wr(n.path, on ? 1 : 0) : false;
 }
 function powerbank_state() {
-	let n = powerbank_node();
-	return { available: n != null, enabled: n ? rd_int(n.path) == 1 : null, present: (n && n.present) ? rd_int(n.present) == 1 : null };
+	let n = powerbank_node(), on = n ? rd_int(n.path) : null;
+	return { available: on != null, enabled: on == null ? null : on == 1, present: (on != null && n.present) ? rd_int(n.present) == 1 : null };
 }
 
 const ACTIONS = {
@@ -566,7 +571,7 @@ const METHODS = {
 	},
 	powerbank: {
 		call: function(req) {
-			if (!powerbank_node()) return { ok: false, error: 'no reverse charging control in this kernel' };
+			if (!powerbank_state().available) return { ok: false, error: 'no reverse charging control in this kernel' };
 			let ok = powerbank_set(!!req.args?.enabled);
 			return { ok: ok, powerbank: powerbank_state() };
 		},

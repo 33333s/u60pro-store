@@ -21,8 +21,9 @@ config battery 'battery'
 	# power off at this charge on battery (0: leave it to the PMIC)
 	option low_shutdown '0'
 
+# the netifd interface of the cellular data connection (what the key action data_toggle brings up and down)
 config net 'net'
-	option data_iface 'wan'
+	option data_iface 'wwan'
 
 # the power key (KEY_POWER, code 116): none, screen_toggle, screen_on, screen_off, wifi_toggle, data_toggle,
 # powerbank_toggle, poweroff, reboot, command (with command_short / command_double / command_long)
