@@ -1,0 +1,6 @@
+#!/bin/sh
+# the new menu entries and translations show after the caches are dropped
+[ -n "$IPKG_INSTROOT" ] && exit 0
+/etc/init.d/rpcd reload 2>/dev/null
+rm -rf /tmp/luci-indexcache* /tmp/luci-modulecache
+exit 0

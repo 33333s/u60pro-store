@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh_Hans\n"
+
+msgid "%d d %d h"
+msgstr "%d 天 %d 小时"
+
+msgid "%d h %d min"
+msgstr "%d 小时 %d 分"
+
+msgid "%d min"
+msgstr "%d 分钟"
+
+msgid "%d s"
+msgstr "%d 秒"
+
+msgid "%d clients"
+msgstr "%d 台设备"
+
+msgid "Always on"
+msgstr "常亮"
+
+msgid "Auto"
+msgstr "自动"
+
+msgid "Battery"
+msgstr "电池"
+
+msgid "Charging"
+msgstr "充电中"
+
+msgid "Charging paused"
+msgstr "暂停充电"
+
+msgid "Clients"
+msgstr "接入设备"
+
+msgid "Dark"
+msgstr "深色"
+
+msgid "External power"
+msgstr "已接电源"
+
+msgid "Failed"
+msgstr "失败"
+
+msgid "Full"
+msgstr "已充满"
+
+msgid "Input %s W"
+msgstr "输入 %s W"
+
+msgid "Light"
+msgstr "浅色"
+
+msgid "No charger"
+msgstr "未接电源"
+
+msgid "No radio"
+msgstr "无无线设备"
+
+msgid "Not connected"
+msgstr "未连接"
+
+msgid "On battery"
+msgstr "电池供电"
+
+msgid "Power key"
+msgstr "电源键"
+
+msgid "Reverse charging"
+msgstr "反向充电"
+
+msgid "Screen"
+msgstr "屏幕"
+
+msgid "This page comes with the package luci-app-u60pro (System > Software)."
+msgstr "这个页面在软件包 luci-app-u60pro 里（系统 → 软件包）。"
+
+msgid "This page is not part of the installed firmware."
+msgstr "当前固件没有这个页面。"
+
+msgid "USB-C: charging and reverse charging"
+msgstr "USB-C：充电与反向充电"

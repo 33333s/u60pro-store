@@ -1,0 +1,27 @@
+{
+  "luci-theme-u60pro": {
+    "description": "U60 Pro theme overview page: device state and its switches",
+    "read": {
+      "ubus": {
+        "u60pro-dashboard": [
+          "state"
+        ],
+        "u60pro.hw": [
+          "status"
+        ]
+      }
+    },
+    "write": {
+      "ubus": {
+        "u60pro-dashboard": [
+          "wifi_set"
+        ],
+        "u60pro.hw": [
+          "screen",
+          "powerbank",
+          "charging"
+        ]
+      }
+    }
+  }
+}

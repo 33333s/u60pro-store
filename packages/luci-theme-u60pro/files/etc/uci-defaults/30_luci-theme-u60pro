@@ -1,0 +1,7 @@
+#!/bin/sh
+uci -q batch <<UCI
+set luci.themes.U60Pro=/luci-static/u60pro
+set luci.main.mediaurlbase=/luci-static/u60pro
+commit luci
+UCI
+exit 0

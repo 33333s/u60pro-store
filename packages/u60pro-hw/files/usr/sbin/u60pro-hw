@@ -1,0 +1,15 @@
+#!/bin/sh
+# u60pro-hw: the hardware service from the shell
+#   u60pro-hw status | history [minutes]
+#   u60pro-hw screen on|off|toggle | brightness <1-100>
+#   u60pro-hw charging pause|resume
+#   u60pro-hw powerbank on|off
+case "$1" in
+	status) exec ubus call u60pro.hw status;;
+	history) exec ubus call u60pro.hw history "{\"minutes\":${2:-1440}}";;
+	screen) exec ubus call u60pro.hw screen "{\"power\":\"$2\"}";;
+	brightness) exec ubus call u60pro.hw screen "{\"brightness\":$2}";;
+	charging) [ "$2" = pause ] && p=true || p=false; exec ubus call u60pro.hw charging "{\"paused\":$p}";;
+	powerbank) [ "$2" = on ] && p=true || p=false; exec ubus call u60pro.hw powerbank "{\"enabled\":$p}";;
+	*) sed -n '2,6s/^# *//p' "$0"; exit 1;;
+esac

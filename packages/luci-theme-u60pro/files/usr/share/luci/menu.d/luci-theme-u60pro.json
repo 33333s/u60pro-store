@@ -1,0 +1,8 @@
+{
+  "admin/u60pro": {
+    "title": "Overview",
+    "order": 1,
+    "action": { "type": "view", "path": "u60pro/overview" },
+    "depends": { "acl": [ "luci-theme-u60pro" ] }
+  }
+}

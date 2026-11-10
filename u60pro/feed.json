@@ -1,0 +1,25 @@
+{
+ "url": "https://raw.githubusercontent.com/33333s/u60pro-store/main/u60pro/packages.adb",
+ "packages": [
+  {
+   "file": "luci-app-u60pro-1.0-r1.apk",
+   "bytes": 26284,
+   "sha256": "7a030863bc4f85a74cf7ff7bf81e7937c55cd0fa142e9fc19747eb2f06cabf8f"
+  },
+  {
+   "file": "luci-theme-u60pro-1.0-r1.apk",
+   "bytes": 41640,
+   "sha256": "5a15df796c395ec932bab9919c1697c9d4a311642b861fe5af17a47513c5bf3c"
+  },
+  {
+   "file": "u60pro-feed-1.0-r1.apk",
+   "bytes": 687,
+   "sha256": "75b70023a2d262ca43552cae5603ca94bd46d1d648bb63b384b2881bbd346aa5"
+  },
+  {
+   "file": "u60pro-hw-1.0-r1.apk",
+   "bytes": 10231,
+   "sha256": "7005235e2ee32c5e1b2f77c3c97af30f516b23a256b42bd98db7d3c9743a84a8"
+  }
+ ]
+}

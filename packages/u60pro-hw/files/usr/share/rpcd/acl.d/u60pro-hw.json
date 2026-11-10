@@ -1,0 +1,13 @@
+{
+  "u60pro-hw": {
+    "description": "U60 Pro hardware: battery, charging, screen and power key",
+    "read": {
+      "ubus": { "u60pro.hw": [ "status", "history" ] },
+      "uci": [ "u60pro" ]
+    },
+    "write": {
+      "ubus": { "u60pro.hw": [ "screen", "charging", "powerbank" ] },
+      "uci": [ "u60pro" ]
+    }
+  }
+}

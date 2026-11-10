@@ -1,0 +1,4 @@
+#!/bin/sh
+/etc/init.d/u60pro-hw stop 2>/dev/null
+/etc/init.d/u60pro-hw disable 2>/dev/null
+exit 0

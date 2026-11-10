@@ -1,0 +1,18 @@
+{
+  "version": "1.0-r1",
+  "arch": "noarch",
+  "description": "LuCI theme U60 Pro: side menu with icons, light and dark, phone/tablet/desktop layouts, and an overview page with the device front and its live screen",
+  "depends": [
+    "luci-base",
+    "rpcd",
+    "ucode",
+    "ucode-mod-fs",
+    "ucode-mod-ubus",
+    "ucode-mod-uci"
+  ],
+  "scripts": {
+    "post-install": "scripts/install",
+    "post-upgrade": "scripts/install",
+    "pre-deinstall": "scripts/remove"
+  }
+}

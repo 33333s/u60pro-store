@@ -1,0 +1,496 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh_Hans\n"
+
+msgid "%d d %d h"
+msgstr "%d 天 %d 小时"
+
+msgid "%d h %d min"
+msgstr "%d 小时 %d 分"
+
+msgid "%d min"
+msgstr "%d 分钟"
+
+msgid "%d s"
+msgstr "%d 秒"
+
+msgid "%s s"
+msgstr "%s 秒"
+
+msgid "1 hour"
+msgstr "1 小时"
+
+msgid "6 hours"
+msgstr "6 小时"
+
+msgid "24 hours"
+msgstr "24 小时"
+
+msgid "48 hours"
+msgstr "48 小时"
+
+msgid "15 seconds"
+msgstr "15 秒"
+
+msgid "30 seconds"
+msgstr "30 秒"
+
+msgid "1 minute"
+msgstr "1 分钟"
+
+msgid "2 minutes"
+msgstr "2 分钟"
+
+msgid "5 minutes"
+msgstr "5 分钟"
+
+msgid "10 minutes"
+msgstr "10 分钟"
+
+msgid "A device is drawing power"
+msgstr "正在给外接设备供电"
+
+msgid "A program that draws on the screen (zwrt-devui) handles the backlight, the touch screen and the power key itself. While it runs, the hardware service only watches."
+msgstr "在屏幕上画界面的程序（zwrt-devui）自己处理背光、触摸屏和电源键。它运行时，硬件服务只观察、不干预。"
+
+msgid "A short press on a dark screen always lights it first. With a double-press action set, a single press acts a third of a second later, once it is clear that no second press follows. While a screen program runs, it handles the key itself and these actions rest."
+msgstr "屏幕熄灭时，短按总是先点亮屏幕。设置了双击动作后，单击要等三分之一秒、确认没有第二下才生效。屏幕程序运行时由它自己处理按键，这里的动作不执行。"
+
+msgid "A touch wakes the screen"
+msgstr "触摸唤醒屏幕"
+
+msgid "After %s"
+msgstr "按住 %s 后"
+
+msgid "After %s at 100%%"
+msgstr "100%% 接电 %s 后"
+
+msgid "Applies at once and lasts until the next change or restart; Save & Apply below keeps a brightness for good."
+msgstr "立即生效，保持到下次调整或重启；要长期保存请用下面的“保存并应用”。"
+
+msgid "Armed"
+msgstr "已开启"
+
+msgid "Automatic"
+msgstr "自动"
+
+msgid "Automatic: the screen program while it runs, otherwise the hardware service."
+msgstr "自动：屏幕程序运行时归它，否则归硬件服务。"
+
+msgid "Backlight"
+msgstr "背光"
+
+msgid "Backlight and power key are run by"
+msgstr "背光和电源键由谁管理"
+
+msgid "Battery"
+msgstr "电池"
+
+msgid "Battery power now %s"
+msgstr "电池当前功率 %s"
+
+msgid "Battery temperature"
+msgstr "电池温度"
+
+msgid "Brightness"
+msgstr "亮度"
+
+msgid "Brightness (%)"
+msgstr "亮度（%）"
+
+msgid "Buttons"
+msgstr "按键"
+
+msgid "Cancelled"
+msgstr "已取消"
+
+msgid "Charge"
+msgstr "电量"
+
+msgid "Charge cycles"
+msgstr "充电循环次数"
+
+msgid "Charge limit: stop at a level, start again below another"
+msgstr "充电上限：充到设定电量停止，低于下限再充"
+
+msgid "Charge now"
+msgstr "当前电量"
+
+msgid "Charge to full"
+msgstr "充满"
+
+msgid "Charger"
+msgstr "充电器"
+
+msgid "Charger and USB-C"
+msgstr "充电器与 USB-C"
+
+msgid "Charges up to %d%%"
+msgstr "充到 %d%% 为止"
+
+msgid "Charging"
+msgstr "充电中"
+
+msgid "Charging allowed"
+msgstr "允许充电"
+
+msgid "Charging mode"
+msgstr "充电模式"
+
+msgid "Charging or full"
+msgstr "充电中或已充满"
+
+msgid "Charging settings"
+msgstr "充电设置"
+
+msgid "Charging policy"
+msgstr "充电策略"
+
+msgid "Clean shutdown on battery"
+msgstr "电池供电时正常关机"
+
+msgid "Command"
+msgstr "命令"
+
+msgid "Connected"
+msgstr "已连接"
+
+msgid "Counted from the last touch or key press."
+msgstr "从最后一次触摸或按键算起。"
+
+msgid "Current"
+msgstr "电流"
+
+msgid "Design capacity"
+msgstr "设计容量"
+
+msgid "Dim before switching off"
+msgstr "熄屏前先变暗"
+
+msgid "Dimmed"
+msgstr "已变暗"
+
+msgid "Direct supply"
+msgstr "直供电"
+
+msgid "Direct supply: run from the charger, never charge"
+msgstr "直供电：只用充电器供电，不给电池充电"
+
+msgid "Double press"
+msgstr "双击"
+
+msgid "Double: %s"
+msgstr "双击：%s"
+
+msgid "Drain rate %s"
+msgstr "耗电速度 %s"
+
+msgid "Enter the command to run."
+msgstr "请填写要运行的命令。"
+
+msgid "Estimated time left"
+msgstr "预计剩余时间"
+
+msgid "Full charge capacity"
+msgstr "满电容量"
+
+msgid "Full, on the charger"
+msgstr "已充满，接着电源"
+
+msgid "Hardware cut-off only"
+msgstr "仅由硬件断电"
+
+msgid "Hardware service"
+msgstr "硬件服务"
+
+msgid "Health: %s"
+msgstr "健康状态：%s"
+
+msgid "History"
+msgstr "历史"
+
+msgid "Holding at 80%"
+msgstr "保持在 80%"
+
+msgid "Holding the key for about ten seconds forces the power off in hardware, whatever is set here."
+msgstr "按住约十秒是硬件强制断电，不受这里的设置影响。"
+
+msgid "Input current"
+msgstr "输入电流"
+
+msgid "Input power"
+msgstr "输入功率"
+
+msgid "Input voltage"
+msgstr "输入电压"
+
+msgid "KEY_POWER (code %s)"
+msgstr "KEY_POWER（键码 %s）"
+
+msgid "Key"
+msgstr "按键"
+
+msgid "Key input"
+msgstr "按键输入"
+
+msgid "Last touch or key %s ago"
+msgstr "上次触摸或按键在 %s 前"
+
+msgid "Last: %s at %s"
+msgstr "最近：%s，%s"
+
+msgid "Limit %d%% / %d%%"
+msgstr "上限 %d%% / 下限 %d%%"
+
+msgid "Listening"
+msgstr "监听中"
+
+msgid "Long press"
+msgstr "长按"
+
+msgid "Long-charge protection"
+msgstr "长充保护"
+
+msgid "Long-press trigger time"
+msgstr "长按触发时间"
+
+msgid "Low battery"
+msgstr "低电量"
+
+msgid "Name of the screen program"
+msgstr "屏幕程序的进程名"
+
+msgid "Never (always on)"
+msgstr "从不（常亮）"
+
+msgid "No action"
+msgstr "无动作"
+
+msgid "No backlight"
+msgstr "没有背光设备"
+
+msgid "No battery reported"
+msgstr "未报告电池"
+
+msgid "No input"
+msgstr "没有输入"
+
+msgid "No reply from the device"
+msgstr "设备没有应答"
+
+msgid "No samples yet: one is taken every minute while the hardware service runs."
+msgstr "还没有记录：硬件服务运行时每分钟记一次。"
+
+msgid "None yet"
+msgstr "还没有"
+
+msgid "Not available"
+msgstr "不可用"
+
+msgid "Not charging"
+msgstr "未在充电"
+
+msgid "Not charging (held)"
+msgstr "暂不充电"
+
+msgid "Not connected"
+msgstr "未连接"
+
+msgid "Not offered by this kernel"
+msgstr "当前内核未提供"
+
+msgid "Not reported"
+msgstr "未报告"
+
+msgid "Off (leave it to the hardware)"
+msgstr "关（交给硬件）"
+
+msgid "Off: only the power key switches a dark screen on."
+msgstr "关闭后只有电源键能点亮熄灭的屏幕。"
+
+msgid "On battery"
+msgstr "电池供电"
+
+msgid "On the charger"
+msgstr "接着电源"
+
+msgid "On the charger, not charging"
+msgstr "接着电源，未充电"
+
+msgid "One sample a minute, kept in memory for two days; the history starts again when the device restarts."
+msgstr "每分钟记一次，在内存里保留两天；设备重启后重新开始记录。"
+
+msgid "Pause charging"
+msgstr "暂停充电"
+
+msgid "Pausing stops charging until the charger is unplugged; the device keeps running from the charger. Pause?"
+msgstr "暂停后在拔掉充电器之前不再充电，设备继续由充电器供电。确定暂停？"
+
+msgid "Point at the charts to read a moment."
+msgstr "把指针移到图上可以查看某一时刻。"
+
+msgid "Power"
+msgstr "电源"
+
+msgid "Power drawn from the battery"
+msgstr "电池输出功率"
+
+msgid "Power into (up) and out of the battery"
+msgstr "电池充入（向上）与输出功率"
+
+msgid "Power into the battery"
+msgstr "电池充入功率"
+
+msgid "Power key"
+msgstr "电源键"
+
+msgid "Power off"
+msgstr "关机"
+
+msgid "Press"
+msgstr "按法"
+
+msgid "Press the power key: every press the service sees is listed here."
+msgstr "按一下电源键：服务收到的每次按键都会列在这里。"
+
+msgid "Presses seen"
+msgstr "收到的按键次数"
+
+msgid "Protection"
+msgstr "保护"
+
+msgid "Ready"
+msgstr "就绪"
+
+msgid "Recent presses"
+msgstr "最近的按键"
+
+msgid "Restart"
+msgstr "重启"
+
+msgid "Reverse charging"
+msgstr "反向充电"
+
+msgid "Run a command"
+msgstr "运行命令"
+
+msgid "Run by"
+msgstr "管理者"
+
+msgid "Run by /bin/sh as root, in the background."
+msgstr "由 /bin/sh 以 root 身份在后台运行。"
+
+msgid "Screen"
+msgstr "屏幕"
+
+msgid "Screen program"
+msgstr "屏幕程序"
+
+msgid "Screen settings"
+msgstr "屏幕设置"
+
+msgid "Short press"
+msgstr "短按"
+
+msgid "Shuts the system down cleanly at this charge while running on battery. Without it the power management chip cuts the power when the battery is empty."
+msgstr "电池供电时到这个电量就正常关机。不设置时，电池耗尽后由电源管理芯片直接断电。"
+
+msgid "Sleeps after %s"
+msgstr "%s 后熄屏"
+
+msgid "Start charging again at"
+msgstr "低于此电量重新充电"
+
+msgid "State"
+msgstr "状态"
+
+msgid "Stop charging at"
+msgstr "充到此电量停止"
+
+msgid "Switch off on low battery"
+msgstr "低电量自动关机"
+
+msgid "Switch the screen off"
+msgstr "熄灭屏幕"
+
+msgid "Switch the screen off after"
+msgstr "无操作后熄屏"
+
+msgid "Switch the screen on or off"
+msgstr "开关屏幕"
+
+msgid "The battery driver's own protection: after 16 hours on the charger at 100 % it holds the battery near 80 %. Switched off, the battery stays full for as long as the charger is connected."
+msgstr "电池驱动自带的保护：接电并保持 100 % 满 16 小时后，把电量维持在 80 % 左右。关闭后，只要接着充电器，电池就一直保持满电。"
+
+msgid "The battery lasts longest when it is not kept full. With a charge limit the device stops charging at the upper level and runs from the charger until the battery has dropped to the lower one. Direct supply never charges while the charger is connected: for a device that stays plugged in."
+msgstr "电池不长期满电寿命最长。设了充电上限后，充到上限就停止充电、改由充电器供电，等电量降到下限再充。直供电在接着充电器时始终不充电，适合长期插电使用。"
+
+msgid "The brightness set here is the one the screen starts with; the slider above changes it at once without saving."
+msgstr "这里设的是开机后的亮度；上面的滑块立即调整亮度但不保存。"
+
+msgid "The charge limit, direct supply and reverse charging are set in System > Power."
+msgstr "充电上限、直供电和反向充电在“系统 → 电源”里设置。"
+
+msgid "The command failed"
+msgstr "命令执行失败"
+
+msgid "The hardware service (u60pro-hw) is not running."
+msgstr "硬件服务（u60pro-hw）没有运行。"
+
+msgid "The kernel reports no input devices: key presses cannot reach the system."
+msgstr "内核没有报告输入设备：按键到不了系统。"
+
+msgid "The last 5 seconds are shown at a third of the brightness."
+msgstr "最后 5 秒以三分之一亮度显示。"
+
+msgid "The level to start charging again must be below the level to stop at."
+msgstr "重新充电的电量必须低于停止充电的电量。"
+
+msgid "This kernel offers no charging policy control (battery_zte/ui_chg_policy_mode), so the settings below have no effect."
+msgstr "当前内核没有提供充电策略接口（battery_zte/ui_chg_policy_mode），下面的设置不会生效。"
+
+msgid "Time"
+msgstr "时间"
+
+msgid "Time to full"
+msgstr "预计充满时间"
+
+msgid "Toggle Wi-Fi"
+msgstr "开关 Wi-Fi"
+
+msgid "Toggle reverse charging"
+msgstr "开关反向充电"
+
+msgid "Toggle the mobile data connection"
+msgstr "开关移动数据"
+
+msgid "Touch panel"
+msgstr "触摸屏"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "USB-C gives up to 18 W"
+msgstr "USB-C 最大输出 18 W"
+
+msgid "Voltage"
+msgstr "电压"
+
+msgid "Wake when the charger is plugged in or out"
+msgstr "插拔充电器时点亮屏幕"
+
+msgid "What it did"
+msgstr "执行的动作"
+
+msgid "left to the screen program"
+msgstr "交给屏幕程序"
+
+msgid "lit the screen"
+msgstr "点亮屏幕"
+
+msgid "no sample"
+msgstr "无记录"
+
+msgid "now"
+msgstr "现在"

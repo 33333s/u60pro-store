@@ -1,0 +1,10 @@
+{
+  "version": "1.0-r1",
+  "arch": "noarch",
+  "description": "LuCI pages of the U60 Pro hardware: Status > Battery, System > Power, Screen and Buttons",
+  "depends": [ "luci-base", "u60pro-hw" ],
+  "scripts": {
+    "post-install": "scripts/install",
+    "post-upgrade": "scripts/install"
+  }
+}

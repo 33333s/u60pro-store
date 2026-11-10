@@ -1,0 +1,11 @@
+#!/bin/sh
+# registers the theme and switches LuCI to it (the other installed themes stay selectable in System > System > Language and Style)
+[ -n "$IPKG_INSTROOT" ] && exit 0
+uci -q batch <<UCI
+set luci.themes.U60Pro=/luci-static/u60pro
+set luci.main.mediaurlbase=/luci-static/u60pro
+commit luci
+UCI
+/etc/init.d/rpcd reload 2>/dev/null
+rm -rf /tmp/luci-indexcache* /tmp/luci-modulecache
+exit 0

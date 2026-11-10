@@ -1,0 +1,26 @@
+{
+  "admin/status/u60pro-battery": {
+    "title": "Battery",
+    "order": 12,
+    "action": { "type": "view", "path": "status/u60pro-battery" },
+    "depends": { "acl": [ "u60pro-hw" ] }
+  },
+  "admin/system/u60pro-power": {
+    "title": "Power",
+    "order": 37,
+    "action": { "type": "view", "path": "system/u60pro-power" },
+    "depends": { "acl": [ "u60pro-hw" ] }
+  },
+  "admin/system/u60pro-screen": {
+    "title": "Screen",
+    "order": 38,
+    "action": { "type": "view", "path": "system/u60pro-screen" },
+    "depends": { "acl": [ "u60pro-hw" ] }
+  },
+  "admin/system/u60pro-buttons": {
+    "title": "Buttons",
+    "order": 39,
+    "action": { "type": "view", "path": "system/u60pro-buttons" },
+    "depends": { "acl": [ "u60pro-hw" ] }
+  }
+}
