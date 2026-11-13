@@ -2,29 +2,29 @@
  "url": "https://raw.githubusercontent.com/33333s/u60pro-store/main/u60pro/packages.adb",
  "packages": [
   {
-   "file": "luci-app-u60pro-1.0-r13.apk",
-   "bytes": 38654,
-   "sha256": "21847d995a2404e651c044571491b2565222867bdc6daa797de7d3ecaa1dc4f1"
+   "file": "luci-app-u60pro-1.0-r14.apk",
+   "bytes": 38776,
+   "sha256": "c0df8195b5841c1de4edbc85eac81f87f01825c4727d20436510471ee81bfd07"
   },
   {
    "file": "luci-theme-u60pro-1.0-r3.apk",
-   "bytes": 41015,
-   "sha256": "6a8073ffc74b9e246136bc787aecd90d7c0328d7844cfec258e329288fff6cd3"
+   "bytes": 41014,
+   "sha256": "cf830e7df912b3f07be24d025b4b6b966a489ebdb7161e750e7c0b0c89db949b"
   },
   {
    "file": "u60pro-devui-1.3.12-r12.apk",
-   "bytes": 2478990,
-   "sha256": "9e61364a6a38f57bd881ce0c72fc138ca6d44d6ae0daeaea980872a9b1bbb2cd"
+   "bytes": 2478989,
+   "sha256": "1c604a3975944224b6eaf0560975299078a6307f9a83c34480be9b7ad82432bd"
   },
   {
    "file": "u60pro-feed-1.0-r1.apk",
    "bytes": 688,
-   "sha256": "9d38fdce93cee49c6b3e1fab87358cbf7f5a3400bb9bd9781fdc4a3fc145a534"
+   "sha256": "58fc379013bdf8009825b183d7a6f1efcde691df2dccdf301bd60e47a2fac56f"
   },
   {
    "file": "u60pro-hw-1.0-r6.apk",
-   "bytes": 13782,
-   "sha256": "026093c305d1a9af8a0f5d18d523dd5a3173c74a28ffc725bbc50a1a27478440"
+   "bytes": 13780,
+   "sha256": "97e62dfb3d9073dd537d9f8babbccb83bf8da5de6ca12dc38dc454b8196ec0a1"
   }
  ]
 }
