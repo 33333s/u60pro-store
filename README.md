@@ -30,9 +30,11 @@ apk update
 | `u60pro-hw` | 硬件服务：电池与充电策略（充电上限、直供电、暂停充电、长充保护、低电量关机、反向充电）、屏幕背光与息屏、电源键的短按 / 双击 / 长按动作。设置在 UCI `u60pro`，状态和控制在 ubus `u60pro.hw`，命令行 `u60pro-hw` |
 | `luci-theme-u60pro` | 本机专用的 LuCI 主题：极简外观、带图标的侧边菜单（手机上是抽屉）、深浅色，带机身示意图的“概览”首页（屏幕里实时画出主页，卡片带开关）。装上即切换到它。样式底层是 Bootstrap 主题（Apache-2.0），图标是 Lucide 子集（ISC） |
 | `u60pro-devui` | 屏幕界面：[zwrt-devui](https://github.com/33333s/zwrt-devui) 的 `u60pro-openwrt` 分支，数据直接从 ubus 和 UCI 取（不需要 zwrt-datad），带页面和一份中文字体（Noto Sans SC 子集：常用汉字 3755 个，1.6 MB，OFL-1.1）。亮度和自动息屏与网页共用 UCI `u60pro.screen`。依赖 `u60pro-hw` |
-| `luci-app-u60pro` | LuCI 页面：「网络 → Wi-Fi」（一排按钮切换两个射频的组合：2.4+5、5、5+6、单 6G 320、5+5、2.4；每个射频的开关；名称密码；需要本机的无线服务）、「状态 → 电池」（电量、功率、历史曲线）、「系统 → 电源」（充电模式和保护）、「系统 → 屏幕」（亮度、息屏、唤醒）、「系统 → 按键」（电源键动作和按键记录）。依赖 `u60pro-hw` |
+| `luci-app-u60pro` | LuCI 页面：「网络 → Wi-Fi」（一排按钮切换两个射频的组合：2.4+5、5、5+6、单 6G 320、5+5、2.4；每个射频的开关；名称密码；需要本机的无线服务）、「网络 → 蜂窝」「网络 → USB」（USB 网络模式、供网方向、可选驱动）、「状态 → 电池」（电量、功率、历史曲线）、「状态 → 实时信息 → 负载」（每个核心的占用）、「系统 → 电源」（充电模式和保护）、「系统 → 屏幕」（亮度、息屏、唤醒）、「系统 → 壁纸」「系统 → 存储」「系统 → 固件更新」「系统 → 按键」（电源键动作和按键记录）。蜂窝、USB、固件更新需要固件里对应的服务。依赖 `u60pro-hw` |
+| `u60pro-drivers` | 可选驱动的目录和安装服务（ubus `u60pro.drivers`）：「网络 → USB」里的驱动开关从本源装上或卸掉下面的驱动包，装上后当场加载、开机自动加载；只装和固件内核对得上的那一批 |
+| `kmod-u60-a19-*` | 可选驱动（26 个）：USB 网卡（Realtek、ASIX、SMSC、Microchip 等）、手机 USB 共享网络（iPhone、华为 NCM、MBIM / QMI）、USB 转串口、USB 声卡、打印机、键鼠（HID）、NTFS。按 a19 内核编译和签名，只能装在这个内核的固件上 |
 
-所有包都是 `noarch`（脚本和网页），不绑定 CPU 架构和内核版本。内核模块包以后随内核一起提供。
+除了 `kmod-u60-*`，所有包都是 `noarch`（脚本和网页），不绑定 CPU 架构和内核版本。
 
 ## 硬件服务怎么用
 
@@ -76,4 +78,4 @@ u60pro-hw powerbank on|off       # USB-C 反向充电
 
 ## 许可
 
-本仓库的脚本和页面用 MIT 许可证。`u60pro-devui` 里的字体按 SIL OFL 1.1 分发（包内 `fonts/OFL.txt`）。`luci-theme-u60pro` 里的 `cascade.css`、`mobile.css` 来自 OpenWrt 的 Bootstrap 主题（Apache-2.0），图标来自 Lucide（ISC）。
+本仓库的脚本和页面用 MIT 许可证。`u60pro-devui` 里的字体按 SIL OFL 1.1 分发（包内 `fonts/OFL.txt`）。`luci-theme-u60pro` 里的 `cascade.css`、`mobile.css` 来自 OpenWrt 的 Bootstrap 主题（Apache-2.0），图标来自 Lucide（ISC）。`kmod-u60-*` 是 Linux 内核自带的驱动（GPL-2.0），`kmod-u60-a19-r8152` 里的 `rtl_nic` 固件来自 linux-firmware，按它的许可分发。

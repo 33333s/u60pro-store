@@ -2,29 +2,164 @@
  "url": "https://raw.githubusercontent.com/33333s/u60pro-store/main/u60pro/packages.adb",
  "packages": [
   {
-   "file": "luci-app-u60pro-1.0-r14.apk",
-   "bytes": 38776,
-   "sha256": "c0df8195b5841c1de4edbc85eac81f87f01825c4727d20436510471ee81bfd07"
+   "file": "luci-app-u60pro-1.0-r25.apk",
+   "bytes": 68493,
+   "sha256": "384b6f73f84b3bb41aa76a263d3287370387e523a09aa68a6429aebe3524a085"
   },
   {
-   "file": "luci-theme-u60pro-1.0-r3.apk",
-   "bytes": 41014,
-   "sha256": "cf830e7df912b3f07be24d025b4b6b966a489ebdb7161e750e7c0b0c89db949b"
+   "file": "luci-theme-u60pro-1.0-r5.apk",
+   "bytes": 41113,
+   "sha256": "3fc142cf3951298cf7aec87a550c1ab4d6d80a6492b4fce9349beb7f985f8c57"
   },
   {
-   "file": "u60pro-devui-1.3.12-r12.apk",
-   "bytes": 2478989,
-   "sha256": "1c604a3975944224b6eaf0560975299078a6307f9a83c34480be9b7ad82432bd"
+   "file": "u60pro-devui-1.3.12-r22.apk",
+   "bytes": 2489903,
+   "sha256": "d4f703b6ef0d7998eab99dcfa5dbb1a8791b4be2d1054ada7acf123957101445"
+  },
+  {
+   "file": "u60pro-drivers-1.0-r2.apk",
+   "bytes": 4751,
+   "sha256": "5a37967bada992b9a20ad0bf6dc218a7ab519c3f0721f48faf363acf614ccbcf"
   },
   {
    "file": "u60pro-feed-1.0-r1.apk",
-   "bytes": 688,
-   "sha256": "58fc379013bdf8009825b183d7a6f1efcde691df2dccdf301bd60e47a2fac56f"
+   "bytes": 690,
+   "sha256": "87d65b02942ed44e870fea2d8a4c21c2bb02f999f6b6fcdf2de6c4c9489b1d1f"
   },
   {
-   "file": "u60pro-hw-1.0-r6.apk",
-   "bytes": 13780,
-   "sha256": "97e62dfb3d9073dd537d9f8babbccb83bf8da5de6ca12dc38dc454b8196ec0a1"
+   "file": "u60pro-hw-1.0-r8.apk",
+   "bytes": 15610,
+   "sha256": "e27eadc66dfcbe76447771b73872d95c89a86f5ae93582daf54012c0e5ff987b"
+  },
+  {
+   "file": "kmod-u60-a19-r8152-5.15.185-r1.apk",
+   "bytes": 69679,
+   "sha256": "2b6482d838d1856ff12007266c0fccbf2687be44760da7ead774c9e83f4c9c38"
+  },
+  {
+   "file": "kmod-u60-a19-asix-5.15.185-r1.apk",
+   "bytes": 19672,
+   "sha256": "c0f7254bf9a63a6a8e40aabdb7553a2bef0cc31a3f6471863208e8fc1ff3e6a6"
+  },
+  {
+   "file": "kmod-u60-a19-smsc95xx-5.15.185-r1.apk",
+   "bytes": 23733,
+   "sha256": "24b73e924a65596dab418a7ca6481ebc24e9f787d0dfae561bd6c6a9769dc0f4"
+  },
+  {
+   "file": "kmod-u60-a19-smsc75xx-5.15.185-r1.apk",
+   "bytes": 18870,
+   "sha256": "24393a1b96d9f3c6e68d85d3afb9e1cf9f3cd11178d41a72b3f975ea46bce6b3"
+  },
+  {
+   "file": "kmod-u60-a19-lan78xx-5.15.185-r1.apk",
+   "bytes": 36916,
+   "sha256": "e1a564bf6b169eef21720a098ab2bdd58d59b21fbb8766358a623299b2242bcc"
+  },
+  {
+   "file": "kmod-u60-a19-rtl8150-5.15.185-r1.apk",
+   "bytes": 10357,
+   "sha256": "94c2efae6a11f2fa12ccfab5323defd5a8e2a24a416c77ea9ee9d2fc3a1d6c35"
+  },
+  {
+   "file": "kmod-u60-a19-mcs7830-5.15.185-r1.apk",
+   "bytes": 6304,
+   "sha256": "5a27e45d3cdb4b61dd90a373ee54c1525f9370f474341dd6278249de2dda2caf"
+  },
+  {
+   "file": "kmod-u60-a19-dm9601-5.15.185-r1.apk",
+   "bytes": 7382,
+   "sha256": "0fa28d154b7f73fe9f14044e6d2644cf2c168e09e7a84e80abce42f0893334f6"
+  },
+  {
+   "file": "kmod-u60-a19-sr9800-5.15.185-r1.apk",
+   "bytes": 8538,
+   "sha256": "39fa827edebfdfb155df0737eb2f1e802fc30d3249e6f8435ca4ebc0ca483dfc"
+  },
+  {
+   "file": "kmod-u60-a19-ipheth-5.15.185-r1.apk",
+   "bytes": 7316,
+   "sha256": "2687c579d7ff86e44658505e0d08555778ff26e84df0e69c63a726f556855fcf"
+  },
+  {
+   "file": "kmod-u60-a19-cdc-wdm-5.15.185-r1.apk",
+   "bytes": 14232,
+   "sha256": "26076106ba975a0a107c8f852b16d2fa065847768afb50cabe2ae15cbbe2f489"
+  },
+  {
+   "file": "kmod-u60-a19-qmi-wwan-5.15.185-r1.apk",
+   "bytes": 20714,
+   "sha256": "6e3f00aab9c051dfa40988353d1324623ca23362fc58088a0c54968bb9c1cc19"
+  },
+  {
+   "file": "kmod-u60-a19-cdc-mbim-5.15.185-r1.apk",
+   "bytes": 7788,
+   "sha256": "2229933906e59c6f0e5e6cc5e813f349f393607f547f1a774c22c3c8fd576610"
+  },
+  {
+   "file": "kmod-u60-a19-huawei-cdc-ncm-5.15.185-r1.apk",
+   "bytes": 4291,
+   "sha256": "9fef142ebc973643015f87c199ae4243def5e72357cfd33ed8fd8bf1bccfc4b9"
+  },
+  {
+   "file": "kmod-u60-a19-usbserial-5.15.185-r1.apk",
+   "bytes": 22583,
+   "sha256": "a7346729608659c9eb92b8356261833352c91205bdabe4d75e168a6c309a30a0"
+  },
+  {
+   "file": "kmod-u60-a19-ch341-5.15.185-r1.apk",
+   "bytes": 7125,
+   "sha256": "21b267a9c1e9fafc5b50349f784e0156228a21e6e48c4787ee5c2c9062124bb0"
+  },
+  {
+   "file": "kmod-u60-a19-cp210x-5.15.185-r1.apk",
+   "bytes": 15144,
+   "sha256": "591441838ec82093d1a8cf0ed607dee945a2bb50b5e51e3a64285e419dadadcd"
+  },
+  {
+   "file": "kmod-u60-a19-ftdi-sio-5.15.185-r1.apk",
+   "bytes": 29793,
+   "sha256": "dbe1bdae3557effd4b237cbca7941718a9b8c798a121e14682b6f63e1da877cf"
+  },
+  {
+   "file": "kmod-u60-a19-pl2303-5.15.185-r1.apk",
+   "bytes": 10981,
+   "sha256": "cbec2b0378e3a70757286e37de67c5da7f41067e0d06f21532b87be1d10238d9"
+  },
+  {
+   "file": "kmod-u60-a19-usb-wwan-5.15.185-r1.apk",
+   "bytes": 8660,
+   "sha256": "5c93f33cb7d8b131027b7919dd447d5454c074bd1c15fb33af3602c3671e13f5"
+  },
+  {
+   "file": "kmod-u60-a19-option-5.15.185-r1.apk",
+   "bytes": 29597,
+   "sha256": "27e35dc4692080a1aeaa1c31c8c737d64f5d38f7f992f5adc0c1ddece48dffb7"
+  },
+  {
+   "file": "kmod-u60-a19-usblp-5.15.185-r1.apk",
+   "bytes": 12850,
+   "sha256": "eb977f451d360a8fb6ab33af219926665389996ad5c33d146f15a09567387231"
+  },
+  {
+   "file": "kmod-u60-a19-usbhid-5.15.185-r1.apk",
+   "bytes": 19620,
+   "sha256": "b32be617398f72254809d58837467b39c29897e260d60a76f9442246ea830ff0"
+  },
+  {
+   "file": "kmod-u60-a19-snd-lib-5.15.185-r1.apk",
+   "bytes": 59869,
+   "sha256": "2c2e98d9feceb9919560734a573b3db4b0fa288ff47b7b62bdc5a630dd257977"
+  },
+  {
+   "file": "kmod-u60-a19-snd-usb-audio-5.15.185-r1.apk",
+   "bytes": 164224,
+   "sha256": "9fe9b027fa021446ae2d876537d1598c95512cb04170f45eec41e053be6d0a35"
+  },
+  {
+   "file": "kmod-u60-a19-ntfs3-5.15.185-r1.apk",
+   "bytes": 135082,
+   "sha256": "ab743d9f6f5b7d1759205accc799d509e9d76151cdccb659579a5e3aaeb4bee7"
   }
  ]
 }
